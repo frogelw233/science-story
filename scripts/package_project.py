@@ -7,7 +7,7 @@ import re
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-ROOT_FILES={"README.md","AGENTS.md","pyproject.toml",".gitignore"}
+ROOT_FILES={"LICENSE","README.md","AGENTS.md","pyproject.toml",".gitignore"}
 TREES={"src","scripts","tests","docs","config","LICENSES",".agents",".github"}
 DENY_PARTS={"__pycache__","node_modules",".venv","raw",".git"}
 ALLOWED_SUFFIXES={".py",".mjs",".md",".json",".svg",".png",".html",".css",".txt",".toml",".yml",".yaml",".jpg",".jpeg",".webp"}

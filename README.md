@@ -80,4 +80,4 @@ python scripts/package_project.py
 
 打包器使用允许清单，并进行有限敏感内容扫描；不是穷尽式秘密检测。默认只在本地生成 ZIP，创作工作流不会自行推送或发布文章。
 
-仓库公开可见不等于已授予开源使用许可。当前未选定项目许可证，`LICENSES/MIT-proposal.md` 仅为尚未采用的建议稿；第三方文献和图片仍归各自权利人。见 [隐私与许可](docs/privacy-and-licensing.md)。
+本项目原创代码、技能、模板、规则与文档采用 [0BSD 许可证](LICENSE)。任何人都可以使用、复制、修改、再分发和商用，无需署名，也无需保留版权声明。欢迎 Fork、改进或提交 Pull Request，不要求将修改贡献回来。软件按原样提供，不作担保。第三方文献和图片仍归各自权利人，不适用本项目许可。见 [隐私与许可](docs/privacy-and-licensing.md)。
