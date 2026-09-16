@@ -1,0 +1,4 @@
+interface:
+  display_name: "科研成果科普 Agent"
+  short_description: "把公开科研与学术成果写成普通读者能进入的中文图文故事，保留证据、配图及检查边界"
+  default_prompt: "使用 $science-story 将我提供的科研或学术成果制作成完整中文图文科普，按成果类型自行核验、配图、导出和检查，只在本地交付。"

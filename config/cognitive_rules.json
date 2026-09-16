@@ -1,0 +1,188 @@
+{
+  "schema_version": "0.4.0",
+  "verified_at": "2026-09-11",
+  "interpretation": "研究支持编辑方向；本产品中的操作均是待验证的工程迁移，不证明真人点击、理解或完读效果。规则存在不等于执行通过。",
+  "engineering_defaults": {
+    "length_policy": "正文、段落和句子均不设字数目标或上下限；字数只作统计，不触发告警、通过、失败或删改要求。篇幅服从讲清楚，按重复与离题情况编辑。",
+    "max_revision_rounds": 2,
+    "status": "editorial_defaults_not_scientific_thresholds",
+    "illustrations": "choose_by_information_need_not_fixed_count",
+    "comprehension_review": "adapt_to_core_claim_and_independently_find_missing_prerequisites"
+  },
+  "evidence": [
+    {
+      "id": "E01",
+      "title": "The wick in the candle of learning: Epistemic curiosity activates reward circuitry and enhances memory",
+      "authors": [
+        "Min Jeong Kang",
+        "Ming Hsu",
+        "Ian M. Krajbich",
+        "George Loewenstein",
+        "Samuel M. McClure",
+        "Joseph Tao-yi Wang",
+        "Colin F. Camerer"
+      ],
+      "year": 2009,
+      "doi": "10.1111/j.1467-9280.2009.02402.x",
+      "url": "https://www.cmu.edu/dietrich/sds/docs/loewenstein/WickCandleLearning.pdf",
+      "kind": "original_experiments",
+      "verification_scope": "作者PDF：实验2方法和延迟回忆结果、实验3方法/结果及讨论；PubMed核对元信息。",
+      "measured_outcomes": [
+        "self_reported_curiosity",
+        "delayed_trivia_recall",
+        "willingness_to_wait_or_spend_tokens",
+        "neural_and_pupillary_correlates"
+      ],
+      "transfer_limit": "常识问答及等待答案不等同中文长文点击或完读；本项目没有真人效果验证。"
+    },
+    {
+      "id": "E02",
+      "title": "Integrating information: A meta-analysis of the spatial contiguity and temporal contiguity effects",
+      "authors": [
+        "Paul Ginns"
+      ],
+      "year": 2006,
+      "doi": "10.1016/j.learninstruc.2006.10.001",
+      "url": "https://www.researchgate.net/profile/Paul-Ginns/publication/248498142_Integrating_information_A_meta-analysis_of_the_spatial_contiguity_and_temporal_contiguity_effects/links/5f2cd0b5299bf13404ab4fe4/Integrating-information-A-meta-analysis-of-the-spatial-contiguity-and-temporal-contiguity-effects.pdf",
+      "kind": "meta_analysis",
+      "verification_scope": "作者接受稿：章节2至4的方法、效应量计算、结果与讨论；50项独立研究。",
+      "measured_outcomes": [
+        "learning_performance",
+        "problem_solving_transfer",
+        "instruction_time_in_some_studies"
+      ],
+      "transfer_limit": "研究间异质；复杂教学材料的结果不规定中文文章的像素、字号或术语配额。概念依赖检查为工程推断。"
+    },
+    {
+      "id": "E03",
+      "title": "How seductive details do their damage: A theory of cognitive interest in science learning",
+      "authors": [
+        "Shannon F. Harp",
+        "Richard E. Mayer"
+      ],
+      "year": 1998,
+      "doi": "10.1037/0022-0663.90.3.414",
+      "url": "https://www.researchgate.net/profile/Richard-Mayer-4/publication/232595492_How_Seductive_Details_Do_Their_Damage_A_Theory_of_Cognitive_Interest_in_Science_Learning/links/57799b8408ae4645d611f204/How-Seductive-Details-Do-Their-Damage-A-Theory-of-Cognitive-Interest-in-Science-Learning.pdf",
+      "kind": "original_experiments",
+      "verification_scope": "原论文摘要、实验1材料与设计、实验4结论及总讨论；没有重算统计。",
+      "measured_outcomes": [
+        "main_idea_recall",
+        "problem_solving_transfer"
+      ],
+      "transfer_limit": "大学生的短篇闪电教材实验；不等于一切有趣细节有害，也没有测自愿阅读完读率。"
+    },
+    {
+      "id": "E04",
+      "title": "The misunderstood limits of folk science: An illusion of explanatory depth",
+      "authors": [
+        "Leonid Rozenblit",
+        "Frank Keil"
+      ],
+      "year": 2002,
+      "doi": "10.1207/s15516709cog2605_1",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3062901/",
+      "kind": "original_experiments",
+      "verification_scope": "PMC原文：研究1的方法/结果/讨论、研究2方法/结果、研究5测量目的及整体研究安排。",
+      "measured_outcomes": [
+        "self_assessed_understanding_before_and_after_explaining",
+        "explanation_quality",
+        "knowledge_domain_comparisons"
+      ],
+      "transfer_limit": "真人机制知识的自评校准研究，没有验证大模型评价器；仅凭模型能作答不得声称普通读者能理解。"
+    },
+    {
+      "id": "E05",
+      "title": "Schema induction and analogical transfer",
+      "authors": [
+        "Mary L. Gick",
+        "Keith J. Holyoak"
+      ],
+      "year": 1983,
+      "doi": "10.1016/0010-0285(83)90002-6",
+      "url": "https://gwern.net/doc/psychology/1983-gick.pdf",
+      "author_copy_url": "https://reasoninglab.psych.ucla.edu/wp-content/uploads/sites/273/2021/04/Gick_Holyoak1983_SchemaInduction.pdf",
+      "repository_url": "https://hdl.handle.net/2027.42/25331",
+      "kind": "original_experiments",
+      "verification_scope": "作者扫描件可访问但文本未提取；大学存档核对元信息，原论文可检索镜像读取实验4至6、表5至10、总讨论。",
+      "measured_outcomes": [
+        "analogical_problem_solution",
+        "induced_schema_quality"
+      ],
+      "transfer_limit": "结构相似解题任务，不规定科普文章类比数量；边界说明是工程措施，非论文直接测量干预。"
+    }
+  ],
+  "rules": [
+    {
+      "id": "COG-01",
+      "name": "gap_payoff",
+      "evidence_id": "E01",
+      "generation_action": "从真实结果选一个具体可回答的问题，保存标题/开头承诺与预计答案；正文交代答案，不编造人物或悬念。",
+      "check_action": "逐一定位标题和开头的承诺，在正文引用答案位置；缺少答案时写明缺口及补写或收窄标题的动作。",
+      "severity": "heuristic",
+      "review_mode": "host_semantic_review"
+    },
+    {
+      "id": "COG-02",
+      "name": "prerequisites",
+      "evidence_id": "E02",
+      "generation_action": "保存理解本次结果必需的概念前置关系，按研究问题、所需前提、研究行动或论证、有限结论安排解释；术语第一次承担解释任务前交代含义，具体顺序可依内容调整。",
+      "check_action": "逐段定位未解释术语、缺失前提或论证跳步；说明读者必须知道而文章没有提供什么，并补足理解所需的解释与衔接，不以字数压缩必要内容。",
+      "severity": "heuristic",
+      "review_mode": "host_semantic_review",
+      "evidence_relation": "engineering_inference_from_element_interactivity_not_a_directly_tested_ordering_rule"
+    },
+    {
+      "id": "COG-03",
+      "name": "image_text_mapping",
+      "evidence_id": "E02",
+      "generation_action": "每图保存作用、对应段落、图内标签及有意义的替代文字；相关说明置于对应图形旁，示意图明确标识。",
+      "check_action": "检查实际图片及手机/桌面渲染；逐图核对标签、箭头、图注与邻近正文的关系，记录位置和修复动作。文件存在仅是确定性前提。",
+      "severity": "heuristic",
+      "review_mode": "host_visual_and_semantic_review"
+    },
+    {
+      "id": "COG-04",
+      "name": "relevant_detail",
+      "evidence_id": "E03",
+      "generation_action": "每个故事性细节及图像注明建立场景、解释关系、比较结果或调节节奏的作用；让生动细节服务核心理解。",
+      "check_action": "标出抢占主线但无相关作用的细节，给删除或重写动作；保留有助理解的具体例子，不因生动而一概删除。",
+      "severity": "heuristic",
+      "review_mode": "host_semantic_review"
+    },
+    {
+      "id": "COG-05",
+      "name": "explain_back",
+      "evidence_id": "E04",
+      "generation_action": "按成果类型确定理解目标，覆盖问题、依据如何支持结论、新进展与边界；隔离审查先独立找出缺失前提，不向其提供标准答案或已知缺陷清单。",
+      "check_action": "仅凭文章和实际图片说明关键关系并给支持位置；不把摘取作者指定答案当作充分检查，不要求所有成果都有因果机制；缺少支持就记文章未交代，记录隔离状态和输入范围。",
+      "severity": "heuristic",
+      "review_mode": "isolated_host_article_only_review",
+      "forbidden_claim": "model_answers_prove_human_comprehension_or_completion_rate"
+    },
+    {
+      "id": "COG-06",
+      "name": "analogy_boundary",
+      "evidence_id": "E05",
+      "generation_action": "类比为可选；使用时记录源对象、目标对象、保留关系及不迁移属性，必要时在正文就地说明边界。",
+      "check_action": "定位类比的关系映射，检查是否把源对象的意图、属性、尺度、逻辑或因果关系无依据地迁移到研究对象；无类比可记not_applicable。",
+      "severity": "heuristic",
+      "review_mode": "host_semantic_and_fact_review",
+      "evidence_relation": "relation_mapping_is_research_informed_boundary_check_is_engineering"
+    }
+  ],
+  "review_record_fields": [
+    "rule_id",
+    "status",
+    "location",
+    "finding",
+    "action"
+  ],
+  "review_status_values": [
+    "pass",
+    "issue",
+    "not_applicable",
+    "unverified"
+  ],
+  "human_validation_status": "not_performed",
+  "hard_gate_note": "真实性、关键解释完整性和图意正确性按产品要求处理。不得将heuristic配置字段通过当成实际认知效果验证。"
+}

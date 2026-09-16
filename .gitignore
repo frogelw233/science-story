@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.env
+.env.*
+tmp/
+runs/
+dist/
+node_modules/
+*.pdf
+science_story_work_kickoff.md
+**/input.txt
+**/raw/
+**/.DS_Store
+
+# Local material is never part of the public agent repository
+examples/
+reports/
+*.zip

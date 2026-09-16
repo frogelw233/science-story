@@ -1,0 +1,23 @@
+name: 文章纠错
+description: 提供文章版本、具体位置、建议和依据
+title: "[纠错] "
+body:
+  - type: input
+    id: article
+    attributes:
+      label: 文章名称与版本
+    validations:
+      required: true
+  - type: textarea
+    id: location
+    attributes:
+      label: 问题位置与原句/图号
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 建议修改及科学依据
+      description: 请尽量给出原始论文或官方资料链接，不上传私人信息。
+    validations:
+      required: true
