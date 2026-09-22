@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "science-story"
-version = "0.4.0"
+version = "0.5.0"
 description = "Host-assisted Chinese science storytelling with evidence, original figures and verifiable exports"
 requires-python = ">=3.10"
 dependencies = []

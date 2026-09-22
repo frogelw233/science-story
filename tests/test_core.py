@@ -187,23 +187,51 @@ class ExportTests(unittest.TestCase):
         (self.run/"editorial_plan.json").unlink()
         self.assertFalse(check(self.run)["passed"])
 
-    def test_text_length_only_changes_descriptive_counts(self):
+    def test_main_text_budget_boundary_and_optional_details(self):
         original = self.story["blocks"][0]["text"]
-        optional = "补充说明" * 120
+        original_count = sum("\u4e00" <= char <= "\u9fff" for char in original)
+        optional = "补充说明" * 1500
         self.story["blocks"].append({"id":"d1", "type":"details", "summary":"选读", "text":optional, "claims":["c1"]})
-        for repetitions in (1, 400):
-            with self.subTest(repetitions=repetitions):
-                text = original * repetitions
-                self.story["blocks"][0]["text"] = text
+        for count, passed in ((original_count, True), (4000, True), (4001, False)):
+            with self.subTest(count=count):
+                self.story["blocks"][0]["text"] = original + "文" * (count - original_count)
                 self.save()
+                # An over-budget draft remains renderable for review.
                 render(self.run)
                 report = check(self.run)
-                self.assertTrue(report["passed"])
-                self.assertEqual(report["editorial_warnings"], [])
-                main_count = sum("\u4e00" <= char <= "\u9fff" for char in text)
-                self.assertEqual(report["main_text_chinese_characters"], main_count)
+                self.assertEqual(report["passed"], passed)
+                self.assertEqual(report["main_text_chinese_characters"], count)
                 self.assertEqual(report["optional_detail_chinese_characters"], len(optional))
-                self.assertEqual(report["chinese_body_characters"], main_count + len(optional))
+                self.assertEqual(report["chinese_body_characters"], count + len(optional))
+                self.assertEqual(report["length_budget"]["source"], "default")
+                failures = [r["id"] for r in report["checks"] if r["status"] == "fail"]
+                self.assertEqual(failures, [] if passed else ["main_text_length"])
+
+    def test_explicit_user_length_override_changes_budget(self):
+        original = self.story["blocks"][0]["text"]
+        self.story["blocks"][0]["text"] = original + "文" * 4100
+        self.story["length_override"] = {"max_main_chinese_characters": 5000, "reason": "User requested an extended article"}
+        self.save()
+        render(self.run)
+        self.assertTrue(check(self.run)["passed"])
+        self.story["length_override"]["max_main_chinese_characters"] = 3000
+        self.save()
+        render(self.run)
+        report = check(self.run)
+        self.assertFalse(report["passed"])
+        self.assertEqual(report["length_budget"]["source"], "user_override")
+
+    def test_invalid_or_unexplained_length_override_rejected(self):
+        for value in ([], {}, {"max_main_chinese_characters": 5000},
+                      {"max_main_chinese_characters": 5000, "reason": "   "},
+                      {"max_main_chinese_characters": True, "reason": "User request"},
+                      {"max_main_chinese_characters": -1, "reason": "User request"},
+                      {"max_main_chinese_characters": "5000", "reason": "User request"}):
+            with self.subTest(value=value):
+                self.story["length_override"] = value
+                self.save()
+                with self.assertRaisesRegex(ValueError, "length_override"):
+                    render(self.run)
 
     def test_missing_language_story_review_fails_check(self):
         render(self.run)

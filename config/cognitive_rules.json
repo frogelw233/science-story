@@ -3,11 +3,12 @@
   "verified_at": "2026-09-11",
   "interpretation": "研究支持编辑方向；本产品中的操作均是待验证的工程迁移，不证明真人点击、理解或完读效果。规则存在不等于执行通过。",
   "engineering_defaults": {
-    "length_policy": "正文、段落和句子均不设字数目标或上下限；字数只作统计，不触发告警、通过、失败或删改要求。篇幅服从讲清楚，按重复与离题情况编辑。",
+    "length_policy": "完整科普正文默认按3000—4000字安排，最长4000字；短题材不为凑足3000字填充，用户另有明确篇幅要求时优先遵从并记录。段落和句子不设机械字数配额。压缩先减支线与重复，不能删掉主线必要解释或提高信息密度；仍放不下时收窄问题或分篇，不能把前提藏进图注或选读。",
     "max_revision_rounds": 2,
     "status": "editorial_defaults_not_scientific_thresholds",
     "illustrations": "choose_by_information_need_not_fixed_count",
-    "comprehension_review": "adapt_to_core_claim_and_independently_find_missing_prerequisites"
+    "comprehension_review": "adapt_to_core_claim_and_independently_find_missing_prerequisites",
+    "length_budget_ref": "config/communication_rules.json#length_budget"
   },
   "evidence": [
     {
@@ -168,6 +169,15 @@
       "severity": "heuristic",
       "review_mode": "host_semantic_and_fact_review",
       "evidence_relation": "relation_mapping_is_research_informed_boundary_check_is_engineering"
+    },
+    {
+      "id": "COG-07",
+      "name": "information_load_and_narrative_pace",
+      "editorial_basis": "用户实际阅读反馈及明确要求；不增加文献效应主张",
+      "generation_action": "一次围绕当前问题展开，逐步引入关系；熟悉内容也占信息负担。允许跟随同一线索停顿回看，不把每句话都加新信息作为优点。",
+      "check_action": "只读成稿，引用连续引入新命题、主题切换、多次总结和图文重复的位置，保留有用解释并调整顺序和节奏；不将降低字数等同降负担。",
+      "severity": "heuristic",
+      "review_mode": "isolated_host_article_only_review"
     }
   ],
   "review_record_fields": [
@@ -184,5 +194,6 @@
     "unverified"
   ],
   "human_validation_status": "not_performed",
-  "hard_gate_note": "真实性、关键解释完整性和图意正确性按产品要求处理。不得将heuristic配置字段通过当成实际认知效果验证。"
+  "hard_gate_note": "真实性、关键解释完整性和图意正确性按产品要求处理。不得将heuristic配置字段通过当成实际认知效果验证。",
+  "editorial_revision": "2026-09-22"
 }

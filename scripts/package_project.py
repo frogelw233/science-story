@@ -35,7 +35,7 @@ def main():
     if findings:
         raise SystemExit("Packaging blocked by scan: "+json.dumps(findings,ensure_ascii=False))
     dest=ROOT/"dist";dest.mkdir(exist_ok=True)
-    package=dest/"science-story-v0.4.0.zip"
+    package=dest/"science-story-v0.5.0.zip"
     with zipfile.ZipFile(package,"w",zipfile.ZIP_DEFLATED) as z:
         for p,rel in chosen: z.write(p,"science-story/"+rel.as_posix())
     report={"created_at":datetime.now(timezone.utc).isoformat(),"package":package.name,"files":len(chosen),"bytes":package.stat().st_size,"sha256":hashlib.sha256(package.read_bytes()).hexdigest(),"scan_findings":findings,"excluded":"Private conversation, source PDF, source article full text, original kickoff, account settings, tmp, runs, caches and secrets","remote_actions":False,"contents":[rel.as_posix() for _,rel in chosen]}

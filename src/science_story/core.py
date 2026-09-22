@@ -13,6 +13,8 @@ from xml.etree import ElementTree as ET
 TEMPLATES = Path(__file__).parent / "templates"
 DISCLOSURE = (TEMPLATES / "disclosure.txt").read_text(encoding="utf-8").strip()
 DISCLOSURE_HEADING = "AI 生成声明"
+# Editorial delivery limit, not an empirically established reading threshold.
+DEFAULT_MAIN_CHINESE_CHARACTERS = 4000
 
 
 def load_json(path):
@@ -58,9 +60,28 @@ def _require(obj, fields, label):
             raise ValueError(f"{label}: missing {key}")
 
 
+def main_text_limit(story):
+    """Resolve a user-specified budget without treating brevity as readability."""
+    override = story.get("length_override")
+    if override is None:
+        return {"max_main_chinese_characters": DEFAULT_MAIN_CHINESE_CHARACTERS,
+                "source": "default", "reason": "Project editorial requirement"}
+    if not isinstance(override, dict):
+        raise ValueError("length_override must be an object")
+    limit = override.get("max_main_chinese_characters")
+    reason = override.get("reason")
+    if type(limit) is not int or limit <= 0:
+        raise ValueError("length_override requires a positive integer maximum")
+    if not isinstance(reason, str) or not reason.strip():
+        raise ValueError("length_override requires the user's explicit length request as reason")
+    return {"max_main_chinese_characters": limit, "source": "user_override",
+            "reason": reason.strip()}
+
+
 def validate(run_dir):
     run_dir = Path(run_dir)
     story = load_json(run_dir / "story.json")
+    main_text_limit(story)
     sources = load_json(run_dir / "sources.json")["sources"]
     evidence = load_json(run_dir / "evidence.json")
     _require(story, ["title", "subtitle", "version", "generated_date", "source_published_date", "core_message", "blocks", "figures"], "story")
@@ -233,7 +254,7 @@ def check(run_dir):
     for name in ["article.html", "article.md"]:
         p = run_dir / name
         content = p.read_text(encoding="utf-8") if p.exists() else ""
-        record(f"{name}_nonempty", bool(content.strip()), "Export exists and is nonempty; character counts are descriptive only")
+        record(f"{name}_nonempty", bool(content.strip()), "Export exists and is nonempty; the main-text budget is checked separately")
         record(f"{name}_disclosure_once", content.count(DISCLOSURE) == 1 and content.count(DISCLOSURE_HEADING) == 1, "Canonical exact text and heading occur once")
         tail = re.sub(r"<[^>]+>", "", content).strip() if name.endswith("html") else content.strip()
         record(f"{name}_disclosure_last", tail.endswith(DISCLOSURE), "Declaration is the last article content, after sources and image credits")
@@ -270,7 +291,12 @@ def check(run_dir):
     count = len(re.findall(r"[\u4e00-\u9fff]", "".join(b.get("text", "") for b in story["blocks"])))
     detail_count = len(re.findall(r"[\u4e00-\u9fff]", "".join(b.get("text", "") for b in story["blocks"] if b["type"] == "details")))
     main_count = count - detail_count
-    report = {"scope": "deterministic", "passed": all(r["status"] == "pass" for r in results), "checks": results, "editorial_warnings": warnings, "chinese_body_characters": count, "main_text_chinese_characters": main_count, "optional_detail_chinese_characters": detail_count, "unverified": ["Human interest, comprehension, click and completion rates", "Independent reproduction of experiment data analysis", "Semantic correctness is reviewed separately by the host, not certified by this checker"]}
+    budget = main_text_limit(story)
+    record("main_text_length", main_count <= budget["max_main_chinese_characters"],
+           f"Main text has {main_count} Chinese characters; maximum is "
+           f"{budget['max_main_chinese_characters']} ({budget['source']}). "
+           "Shorter pieces need no padding; a passing count does not establish readability.")
+    report = {"scope": "deterministic", "passed": all(r["status"] == "pass" for r in results), "checks": results, "editorial_warnings": warnings, "chinese_body_characters": count, "main_text_chinese_characters": main_count, "optional_detail_chinese_characters": detail_count, "length_budget": budget, "unverified": ["Human interest, comprehension, click and completion rates", "Independent reproduction of experiment data analysis", "Semantic correctness is reviewed separately by the host, not certified by this checker"]}
     write_json(run_dir / "checks.json", report)
     return report
 
